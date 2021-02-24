@@ -1,4 +1,5 @@
 <?php
+
 namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
@@ -74,6 +75,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect('site/signup');
+        }
         return $this->render('index');
     }
 
@@ -145,7 +149,7 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-     /**
+    /**
      * Displays dashboard page.
      *
      * @return mixed
@@ -155,7 +159,7 @@ class SiteController extends Controller
         return $this->render('dashboard');
     }
 
-         /**
+    /**
      * Displays works page.
      *
      * @return mixed
