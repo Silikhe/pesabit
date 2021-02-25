@@ -76,6 +76,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
+            // return $this->goHome();
             return $this->redirect('site/signup');
         }
         return $this->render('index');
@@ -149,6 +150,17 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+
+    /**
+     * Displays about page.
+     *
+     * @return mixed
+     */
+    public function actionContacts()
+    {
+        return $this->render('contacts');
+    }
+
     /**
      * Displays dashboard page.
      *
@@ -179,7 +191,7 @@ class SiteController extends Controller
         $model = new SignupForm();
         if ($model->load(Yii::$app->request->post()) && $model->signup()) {
             Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
-            return $this->goHome();
+            return $this->redirect('contacts');
         }
 
         return $this->render('signup', [

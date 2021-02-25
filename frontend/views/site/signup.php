@@ -44,7 +44,7 @@ use frontend\models\User;
 
 
 <!--============= Account Section Starts Here =============-->
-<!-- <section class="account-section padding-bottom">
+<section class="account-section padding-bottom">
     <div class="container">
         <div class="account-wrapper mt--100 mt-lg--440">
             <div class="left-side">
@@ -52,11 +52,11 @@ use frontend\models\User;
                     <h2 class="title">HI, THERE</h2>
                     <p>Login or Create account Here</p>
                 </div>
-                <form class="login-form">
+                <!-- <form class="login-form">
                     <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
                     <div class="form-group mb-30">
                         <label for="login-email"><i class="fas fa-phone"></i></label>
-                        <?= $form->field($model, 'username')->textInput(['autofocus' => false]) ?>
+                        <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
                     </div>
                     <div class="form-group mb-30">
                         <label for="login-email"><i class="fas fa-phone"></i></label>
@@ -70,27 +70,8 @@ use frontend\models\User;
                         <?= Html::submitButton('Proceed', ['class' => 'custom-button', 'name' => 'signup-button']) ?>
                     </div>
                     <?php ActiveForm::end(); ?>
-                </form>
+                </form> -->
 
-            </div>
-            <div class="right-side cl-white">
-                <div class="section-header mb-0">
-                    <h3 class="title mt-0">NEW HERE?</h3>
-                    <p>Enter your mobile number to proceed</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-<div class="container">
-    <div class="site-signup">
-        <h1><?= Html::encode($this->title) ?></h1>
-
-        <p>Please fill out the following fields to signup:</p>
-
-        <div class="row">
-            <div class="col-lg-5">
                 <?php $form = ActiveForm::begin(['id' => 'form-signup']); ?>
 
                 <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
@@ -105,7 +86,14 @@ use frontend\models\User;
                 </div>
 
                 <?php ActiveForm::end(); ?>
+
+            </div>
+            <div class="right-side cl-white">
+                <div class="section-header mb-0">
+                    <h3 class="title mt-0">NEW HERE?</h3>
+                    <p>Enter your mobile number to proceed</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</section>
