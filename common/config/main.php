@@ -13,5 +13,20 @@ return [
             'class' => 'yii\rbac\DbManager',
             'defaultRoles' => ['guest', 'user'],
         ],
+        'urlManager' => [
+
+            'enablePrettyUrl' => true,
+
+            'showScriptName' => false,
+
+            'enableStrictParsing' => false,
+
+            'rules' => [
+
+                '<module:\w+>/<controller:\w+>/<action:\w+>/<id:\d+>' => '<module>/<controller>/<action>',
+
+            ]
+
+        ],
     ],
 ];

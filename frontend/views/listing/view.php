@@ -6,17 +6,13 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Listing */
 
-$this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Listings', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="listing-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="container">
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->listingId], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Update', ['update', 'id' => $model->listingId], ['class' => 'btn custom-button']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->listingId], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -32,8 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'listingId',
             'worth',
             'winner',
-            'bidId',
-            'imageId',
             'userId',
             'title',
             'paybill',

@@ -9,8 +9,9 @@ use Yii;
  *
  * @property int $imageId
  * @property string $path
+ * @property int $listingId
  *
- * @property Listing[] $listings
+ * @property Listing $listing
  */
 class Images extends \yii\db\ActiveRecord
 {
@@ -28,8 +29,10 @@ class Images extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['path'], 'required'],
+            // [['path', 'listingId'], 'required'],
+            [['listingId'], 'integer'],
             [['path'], 'string', 'max' => 255],
+            [['listingId'], 'exist', 'skipOnError' => true, 'targetClass' => Listing::className(), 'targetAttribute' => ['listingId' => 'listingId']],
         ];
     }
 
@@ -41,16 +44,17 @@ class Images extends \yii\db\ActiveRecord
         return [
             'imageId' => 'Image ID',
             'path' => 'Path',
+            'listingId' => 'Listing ID',
         ];
     }
 
     /**
-     * Gets query for [[Listings]].
+     * Gets query for [[Listing]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getListings()
+    public function getListing()
     {
-        return $this->hasMany(Listing::className(), ['imageId' => 'imageId']);
+        return $this->hasOne(Listing::className(), ['listingId' => 'listingId']);
     }
 }

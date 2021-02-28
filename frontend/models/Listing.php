@@ -10,15 +10,13 @@ use Yii;
  * @property int $listingId
  * @property string $worth
  * @property string $winner
- * @property int $bidId
- * @property int $imageId
  * @property int $userId
  * @property string $title
  * @property int $paybill
  * @property string $accountNo
  *
- * @property Bid $bid
- * @property Images $image
+ * @property Images $images
+ * @property User $user
  */
 class Listing extends \yii\db\ActiveRecord
 {
@@ -36,12 +34,11 @@ class Listing extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['worth', 'winner', 'bidId', 'imageId', 'userId', 'title', 'paybill', 'accountNo'], 'required'],
-            [['bidId', 'imageId', 'userId', 'paybill'], 'integer'],
+            [['worth', 'winner', 'userId', 'title', 'paybill', 'accountNo'], 'required'],
+            [['userId', 'paybill'], 'integer'],
             [['worth', 'winner'], 'string', 'max' => 255],
             [['title', 'accountNo'], 'string', 'max' => 225],
-            [['bidId'], 'exist', 'skipOnError' => true, 'targetClass' => Bid::className(), 'targetAttribute' => ['bidId' => 'bidId']],
-            [['imageId'], 'exist', 'skipOnError' => true, 'targetClass' => Images::className(), 'targetAttribute' => ['imageId' => 'imageId']],
+            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userId' => 'id']],
         ];
     }
 
@@ -54,8 +51,6 @@ class Listing extends \yii\db\ActiveRecord
             'listingId' => 'Listing ID',
             'worth' => 'Worth',
             'winner' => 'Winner',
-            'bidId' => 'Bid ID',
-            'imageId' => 'Image ID',
             'userId' => 'User ID',
             'title' => 'Title',
             'paybill' => 'Paybill',
@@ -64,22 +59,22 @@ class Listing extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Bid]].
+     * Gets query for [[Images]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getBid()
+    public function getImages()
     {
-        return $this->hasOne(Bid::className(), ['bidId' => 'bidId']);
+        return $this->hasOne(Images::className(), ['imageId' => 'listingId']);
     }
 
     /**
-     * Gets query for [[Image]].
+     * Gets query for [[User]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getImage()
+    public function getUser()
     {
-        return $this->hasOne(Images::className(), ['imageId' => 'imageId']);
+        return $this->hasOne(User::className(), ['id' => 'userId']);
     }
 }

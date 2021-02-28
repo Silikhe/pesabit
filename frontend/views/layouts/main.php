@@ -3,7 +3,9 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+// use Yii;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
@@ -64,8 +66,21 @@ AppAsset::register($this);
                                 <!-- <li>
                                     <a href="#0" class="cart-button"><i class="flaticon-shopping-basket"></i><span class="amount">08</span></a>
                                 </li> -->
+                                <li class="customer-support p-2">
+                                    <a href="#" class="user-button"><i class="flaticon-user"></i></a>
+
+                                    <select href="<?= Url::to(['site/darshboard']) ?>" name="" class="select-bar">
+                                        <option value=""><a href="<?= Url::to(['site/darshboard']) ?>">Dash</a></option>
+                                        <option value="<?= Url::to(['site/dashboard']) ?>">Account</option>
+                                        <option value="<?= Url::to(['site/logout']) ?>">logout</option>
+                                    </select>
+                                </li>
                                 <li>
-                                    <a href="sign-in.html" class="user-button"><i class="flaticon-user"></i></a>
+                                    <?php if (Yii::$app->user->can('user')) { ?>
+                                        <a href="<?= Url::to(['listing/create']) ?>" class="custom-button">
+                                            <span class="text-sm-center"> Create Listing</span>
+                                        </a>
+                                    <?php } ?>
                                 </li>
                             </ul>
                         </div>
@@ -76,7 +91,7 @@ AppAsset::register($this);
                         <div class="header-wrapper">
                             <div class="logo">
 
-                                <a href="/">
+                                <a href="<?= Url::to(['site/index']) ?>">
                                     <img src="<?= Yii::$app->request->baseUrl ?>/themes/images/logo/logo.png" alt="logo">
                                 </a>
                             </div>

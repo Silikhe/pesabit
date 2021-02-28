@@ -7,18 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel frontend\models\ListingSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Listings';
-$this->params['breadcrumbs'][] = $this->title;
+$username = \Yii::$app->user->identity->username;
 ?>
-<div class="listing-index">
+<div class="container" style="margin: 12%">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Create Listing', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); 
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -26,15 +20,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'listingId',
+            // 'listingId',
             'worth',
             'winner',
-            'bidId',
-            'imageId',
-            //'userId',
-            //'title',
-            //'paybill',
-            //'accountNo',
+            // 'userId->username',
+            'title',
+            'paybill',
+            'accountNo',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

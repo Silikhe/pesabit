@@ -8,6 +8,7 @@ use frontend\models\ListingSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ListingController implements the CRUD actions for Listing model.
@@ -67,7 +68,8 @@ class ListingController extends Controller
         $model = new Listing();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->listingId]);
+            // return $this->redirect(['view', 'id' => $model->listingId]);
+            return $this->redirect('bid');
         }
 
         return $this->render('create', [
@@ -75,6 +77,63 @@ class ListingController extends Controller
         ]);
     }
 
+    // public function actionImages()
+    // {
+    //     $model = new \frontend\models\Images();
+
+    //     if ($model->load(Yii::$app->request->post())) {
+    //         if ($model->validate()) {
+    //             // form inputs are valid, do something here
+    //             return;
+    //         }
+    //     }
+
+    //     return $this->render('images', [
+    //         'model' => $model,
+    //         // 'listingId' => $listingId,
+    //     ]);
+    // }
+
+    public function actionImages()
+    {
+        $model = new \frontend\models\Images();
+
+        if ($model->load(Yii::$app->request->post())) {
+            //generates images with unique names
+            $imageName = bin2hex(openssl_random_pseudo_bytes(10));
+            $model->path = UploadedFile::getInstance($model, 'path');
+            //saves file in the root directory
+            $model->path->saveAs('images/' . $imageName . '.' . $model->path->extension);
+            //save in the db
+            $model->path = 'images/' . $imageName . '.' . $model->path->extension;
+            $model->save();
+
+            var_dump($imageName);
+            return $this->redirect(['index']);
+        }
+
+        return $this->render('images', [
+            'model' => $model,
+            // 'listingId' => $listingId,
+        ]);
+    }
+
+
+    public function actionBid()
+    {
+        $model = new \frontend\models\Bid();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate()) {
+                // form inputs are valid, do something here
+                return;
+            }
+        }
+
+        return $this->render('bid', [
+            'model' => $model,
+        ]);
+    }
     /**
      * Updates an existing Listing model.
      * If update is successful, the browser will be redirected to the 'view' page.

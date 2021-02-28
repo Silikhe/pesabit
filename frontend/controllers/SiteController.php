@@ -76,12 +76,10 @@ class SiteController extends Controller
     public function actionIndex()
     {
         if (Yii::$app->user->isGuest) {
-            // return $this->goHome();
-            return $this->redirect('site/signup');
+            return $this->redirect(['login']);
         }
         return $this->render('index');
     }
-
     /**
      * Logs in a user.
      *
@@ -89,16 +87,14 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->goHome();
+        if (!Yii::$app->user->isGuest) {
+            return $this->redirect(['login']);
         }
-
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
             $model->password = '';
-
             return $this->render('login', [
                 'model' => $model,
             ]);

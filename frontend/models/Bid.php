@@ -11,9 +11,11 @@ use Yii;
  * @property int $userId
  * @property string $bidStart
  * @property string $bidEnd
+ * @property int $listingId
+ * @property int $Amount
  *
  * @property User $user
- * @property Listing[] $listings
+ * @property Listing $listing
  */
 class Bid extends \yii\db\ActiveRecord
 {
@@ -31,10 +33,11 @@ class Bid extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['userId', 'bidStart', 'bidEnd'], 'required'],
-            [['userId'], 'integer'],
+            [['userId', 'bidStart', 'bidEnd', 'listingId', 'Amount'], 'required'],
+            [['userId', 'listingId', 'Amount'], 'integer'],
             [['bidStart', 'bidEnd'], 'safe'],
             [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userId' => 'id']],
+            [['listingId'], 'exist', 'skipOnError' => true, 'targetClass' => Listing::className(), 'targetAttribute' => ['listingId' => 'listingId']],
         ];
     }
 
@@ -48,6 +51,8 @@ class Bid extends \yii\db\ActiveRecord
             'userId' => 'User ID',
             'bidStart' => 'Bid Start',
             'bidEnd' => 'Bid End',
+            'listingId' => 'Listing ID',
+            'Amount' => 'Amount',
         ];
     }
 
@@ -62,12 +67,12 @@ class Bid extends \yii\db\ActiveRecord
     }
 
     /**
-     * Gets query for [[Listings]].
+     * Gets query for [[Listing]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getListings()
+    public function getListing()
     {
-        return $this->hasMany(Listing::className(), ['bidId' => 'bidId']);
+        return $this->hasOne(Listing::className(), ['listingId' => 'listingId']);
     }
 }

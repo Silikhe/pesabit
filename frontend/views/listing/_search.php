@@ -21,13 +21,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'winner') ?>
 
-    <?= $form->field($model, 'bidId') ?>
+    <?= $form->field($model, 'userId') ?>
 
-    <?= $form->field($model, 'imageId') ?>
-
-    <?php // echo $form->field($model, 'userId') ?>
-
-    <?php // echo $form->field($model, 'title') ?>
+    <?= $form->field($model, 'title') ?>
 
     <?php // echo $form->field($model, 'paybill') ?>
 

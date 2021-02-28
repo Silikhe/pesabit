@@ -17,7 +17,7 @@ class ListingSearch extends Listing
     public function rules()
     {
         return [
-            [['listingId', 'bidId', 'imageId', 'userId', 'paybill'], 'integer'],
+            [['listingId', 'userId', 'paybill'], 'integer'],
             [['worth', 'winner', 'title', 'accountNo'], 'safe'],
         ];
     }
@@ -59,8 +59,6 @@ class ListingSearch extends Listing
         // grid filtering conditions
         $query->andFilterWhere([
             'listingId' => $this->listingId,
-            'bidId' => $this->bidId,
-            'imageId' => $this->imageId,
             'userId' => $this->userId,
             'paybill' => $this->paybill,
         ]);
