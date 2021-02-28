@@ -20,10 +20,10 @@ $username = \Yii::$app->user->identity->username;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'listingId',
+            'listingId',
             'worth',
             'winner',
-            // 'userId->username',
+            'userId',
             'title',
             'paybill',
             'accountNo',
